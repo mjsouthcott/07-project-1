@@ -16,7 +16,7 @@
   </head>
   <body>
     <!-- Start of Header -->
-    <section class="hero is-danger">
+    <section class="hero is-primary">
       <div class="hero-body">
         <div class="container">
           <h1 class="title is-1">
@@ -44,23 +44,29 @@
             </div>
             <div class="level-item">
               <div class="field">
-                <p class="control">
+                <p class="control has-icons-left">
                   <input
                     class="input"
                     type="text"
                     placeholder="Enter a City (Optional)"
                     id="city-input"
                   />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-city"></i>
+                  </span>
                 </p>
               </div>
               <div class="field has-addons">
-                <p class="control">
+                <p class="control has-icons-left">
                   <input
                     class="input"
                     type="text"
                     placeholder="Enter a Country"
                     id="country-input"
                   />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-globe-americas"></i>
+                  </span>
                 </p>
                 <p class="control">
                   <button class="button" id="search-btn">
@@ -87,10 +93,7 @@
               <p class="menu-label">
                 Search History
               </p>
-              <ul class="menu-list" id="search-history">
-                <!--<li><a>Ottawa, Canada</a></li>
-                <li><a>London, England</a></li>-->
-              </ul>
+              <ul class="menu-list" id="search-history"></ul>
             </aside>
           </div>
           <!-- End of Menu-->

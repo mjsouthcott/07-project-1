@@ -11,7 +11,12 @@ displaySearchHistory();
 function formatName(name) {
   let formattedName = "";
   for (let i = 0; i < name.length; i++) {
-    if (i === 0 || name[i - 1] === " " || name[i - 1] === "-") {
+    if (
+      i === 0 ||
+      name[i - 1] === " " ||
+      name[i - 1] === "-" ||
+      name[i - 1] === "."
+    ) {
       formattedName += name[i].toUpperCase();
     } else {
       formattedName += name[i].toLowerCase();
@@ -36,6 +41,21 @@ function displaySearchHistory() {
 
   $searchHistory.append($.parseHTML(listItems));
 }
+
+// TODO
+function getLocationCoords() {}
+
+// TODO
+function getTweets() {}
+
+// TODO
+function getNewsStories() {}
+
+// TODO
+function displayTweet() {}
+
+// TODO
+function displayNewsStory() {}
 
 $searchBtn.on("click", function(event) {
   event.preventDefault();
@@ -62,7 +82,6 @@ $searchBtn.on("click", function(event) {
     window.localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   }
 
-  // TODO add display function calls
-  console.log(searchHistory);
   displaySearchHistory();
+  // TODO: Add get and display function calls
 });
