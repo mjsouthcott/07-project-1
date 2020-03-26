@@ -15,6 +15,7 @@
     ></script>
   </head>
   <body>
+    <!-- Start of Header -->
     <section class="hero is-danger">
       <div class="hero-body">
         <div class="container">
@@ -30,9 +31,11 @@
         </div>
       </div>
     </section>
+    <!-- End of Header-->
+    <!-- Start of Section -->
     <section class="section">
       <div class="container">
-        <!-- Main container -->
+        <!-- Start of Nav -->
         <nav class="level">
           <!-- Left side -->
           <div class="level-left">
@@ -45,7 +48,7 @@
                   <input
                     class="input"
                     type="text"
-                    placeholder="Enter a City"
+                    placeholder="Enter a City (Optional)"
                     id="city-input"
                   />
                 </p>
@@ -60,7 +63,7 @@
                   />
                 </p>
                 <p class="control">
-                  <button class="button">
+                  <button class="button" id="search-btn">
                     Search
                   </button>
                 </p>
@@ -76,20 +79,22 @@
             </div>
           </div>
         </nav>
+        <!-- End of Nav-->
         <div class="columns">
-          <!-- Menu -->
+          <!-- Start of Menu -->
           <div class="column is-one-quarter">
             <aside class="menu notification">
               <p class="menu-label">
                 Search History
               </p>
-              <ul class="menu-list">
-                <li><a>Ottawa, Canada</a></li>
-                <li><a>London, England</a></li>
+              <ul class="menu-list" id="search-history">
+                <!--<li><a>Ottawa, Canada</a></li>
+                <li><a>London, England</a></li>-->
               </ul>
             </aside>
           </div>
-          <!-- Content -->
+          <!-- End of Menu-->
+          <!-- Start of Content -->
           <div class="column">
             <div class="content">
               <div class="box">
@@ -138,8 +143,10 @@
             </div>
           </div>
         </div>
+        <!-- End of Content -->
       </div>
     </section>
+    <!-- End of Section -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="js/script.js"></script>
