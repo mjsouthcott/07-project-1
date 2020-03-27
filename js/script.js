@@ -1,7 +1,14 @@
-let $cityInput = $("#city-input");
-let $countryInput = $("#country-input");
+let $companyInput = $("#company-input");
 let $searchBtn = $("#search-btn");
 let $searchHistory = $("#search-history");
+
+const IEXCLOUD_API_URL = "https://sandbox.iexapis.com/stable/stock/";
+const NEWS_API_URL = "";
+
+const IEXCLOUD_API_KEY = "pk_60b39c1bb2af498f8fbca8d0930e9880";
+const NEWS_API_KEY = "";
+
+let keywords = ["coronavirus", "covid", "pandemic"];
 
 let searchHistory =
   JSON.parse(window.localStorage.getItem("searchHistory")) || [];
@@ -43,40 +50,35 @@ function displaySearchHistory() {
 }
 
 // TODO
-function getLocationCoords() {}
+function getStockSymbol(companyName) {
+  return stockSymbol;
+}
 
 // TODO
-function getTweets() {}
+function getStockPrice(stockSymbol) {
+  return stockPrice;
+}
 
 // TODO
 function getNewsStories() {}
 
 // TODO
-function displayTweet() {}
+function displayStockPrice() {}
 
 // TODO
 function displayNewsStory() {}
 
 $searchBtn.on("click", function(event) {
   event.preventDefault();
-  let cityName = formatName($cityInput.val().trim());
-  let countryName = formatName($countryInput.val().trim());
-  let locationName = "";
+  let companyName = formatName($companyInput.val().trim());
 
-  $cityInput.val("");
-  $countryInput.val("");
+  $companyInput.val("");
 
-  if (countryName) {
-    if (cityName && countryName) {
-      locationName = `${cityName}, ${countryName}`;
-    } else {
-      locationName = countryName;
-    }
+  if (companyName) {
+    console.log(companyName);
 
-    console.log(locationName);
-
-    if (!searchHistory.includes(locationName)) {
-      searchHistory.push(locationName);
+    if (!searchHistory.includes(companyName)) {
+      searchHistory.push(companyName);
     }
 
     window.localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
