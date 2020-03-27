@@ -1,11 +1,15 @@
 let $companyInput = $("#company-input");
 let $searchBtn = $("#search-btn");
 let $searchHistory = $("#search-history");
+let $stockPrice = $("#stock-price");
+let $errorMessage = $("#error-message");
 
-const IEXCLOUD_API_URL = "https://sandbox.iexapis.com/stable/stock/";
+const IEXCLOUD_SYMBOL_API_URL =
+  "https://api.iextrading.com/1.0/ref-data/symbols";
+const IEXCLOUD_PRICE_API_URL = "https://sandbox.iexapis.com/stable/stock/";
 const NEWS_API_URL = "";
 
-const IEXCLOUD_API_KEY = "pk_60b39c1bb2af498f8fbca8d0930e9880";
+const IEXCLOUD_API_KEY = "Tsk_2d13159a4439423cb7fb707f85ac77c5";
 const NEWS_API_KEY = "";
 
 let keywords = ["coronavirus", "covid", "pandemic"];
@@ -32,11 +36,16 @@ function formatName(name) {
   return formattedName;
 }
 
+function updateSearchHistory(companyName) {
+  if (!searchHistory.includes(companyName)) {
+    searchHistory.push(companyName);
+  }
+  window.localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+
 function displaySearchHistory() {
   $searchHistory.empty();
-
   let listItems = "";
-
   for (let i = 0; i < searchHistory.length; i++) {
     listItems += `
       <li>
@@ -45,25 +54,59 @@ function displaySearchHistory() {
         </a>
       </li>`;
   }
-
   $searchHistory.append($.parseHTML(listItems));
 }
 
-// TODO
-function getStockSymbol(companyName) {
-  return stockSymbol;
+function displayErrorMessage() {
+  $errorMessage.text("Stock symbol not found");
 }
 
-// TODO
+function hideErrorMessage() {
+  $errorMessage.text("");
+}
+
+function getStockSymbol(companyName) {
+  $.ajax({
+    url: IEXCLOUD_SYMBOL_API_URL,
+    method: "GET"
+  }).then(function(response) {
+    for (let i = 0; i < response.length; i++) {
+      if (response[i].name === companyName.toUpperCase()) {
+        // Test
+        console.log(response[i].symbol);
+
+        hideErrorMessage();
+        updateSearchHistory(companyName);
+        displaySearchHistory();
+        getStockPrice(response[i].symbol);
+        return;
+      }
+    }
+    displayErrorMessage();
+  });
+}
+
 function getStockPrice(stockSymbol) {
-  return stockPrice;
+  $.ajax({
+    url: `${IEXCLOUD_PRICE_API_URL}${stockSymbol}/price?token=${IEXCLOUD_API_KEY}`,
+    method: "GET"
+  }).then(function(response) {
+    // Test
+    console.log(response);
+
+    displayStockPrice(response);
+  });
 }
 
 // TODO
 function getNewsStories() {}
 
+function displayStockPrice(stockPrice) {
+  $stockPrice.text(stockPrice);
+}
+
 // TODO
-function displayStockPrice() {}
+function displayReaction(stockPrice) {}
 
 // TODO
 function displayNewsStory() {}
@@ -75,15 +118,12 @@ $searchBtn.on("click", function(event) {
   $companyInput.val("");
 
   if (companyName) {
-    console.log(companyName);
-
-    if (!searchHistory.includes(companyName)) {
-      searchHistory.push(companyName);
-    }
-
-    window.localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    // TODO: Add get and display function calls
+    getStockSymbol(companyName);
   }
+});
 
-  displaySearchHistory();
-  // TODO: Add get and display function calls
+$searchHistory.on("click", "a", function() {
+  let $this = $(this);
+  getStockSymbol($this.text().trim());
 });
