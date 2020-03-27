@@ -99,7 +99,7 @@ function getStockPrice(stockSymbol) {
 }
 
 // TODO
-function getNewsStories() {}
+function getNewsStories(companyName) {}
 
 function displayStockPrice(stockPrice) {
   $stockPrice.text(stockPrice);
@@ -120,6 +120,7 @@ $searchBtn.on("click", function(event) {
   if (companyName) {
     // TODO: Add get and display function calls
     getStockSymbol(companyName);
+    getNewsStories(companyName);
   }
 });
 
