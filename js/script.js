@@ -75,7 +75,6 @@ function getStockSymbol(companyName) {
         // Test
         console.log(response[i].symbol);
 
-        hideErrorMessage();
         updateSearchHistory(companyName);
         displaySearchHistory();
         getStockPrice(response[i].symbol);
@@ -83,6 +82,9 @@ function getStockSymbol(companyName) {
       }
     }
     displayErrorMessage();
+    setTimeout(function() {
+      hideErrorMessage();
+    }, 1500);
   });
 }
 
